@@ -18,5 +18,60 @@
     <ClCompile Include="AppMain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Enemy\Enemy.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Player.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\GameObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Scene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\InputControl.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Vector2D.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Object\Enemy\Enemy.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Player.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\GameObject.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\InputControl.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Vector2D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\Images\BoxEnemy\1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\Images\BoxEnemy\2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\Images\Tri-pilot\1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\Images\Tri-pilot\2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\Images\BackGround.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
 </Project>
