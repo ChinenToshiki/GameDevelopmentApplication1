@@ -16,14 +16,6 @@ Vector2D::~Vector2D()
 {
 }
 
-Vector2D& Vector2D::operator=(const Vector2D& location)
-{
-	this->x = location.x;
-	this->y = location.y;
-
-	return *this;
-}
-
 const Vector2D Vector2D::operator+(const Vector2D& location)const
 {
 	Vector2D result = Vector2D(0.0f);

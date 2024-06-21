@@ -1,8 +1,8 @@
 #pragma once
 
-#include"../GameObject.h"
+#include"../ObjectControl.h"
 
-class Player : public GameObject
+class Player : public ObjectControl
 {
 private:
 	int animation[2];
@@ -17,8 +17,10 @@ public:
 	virtual void Update() override;
 	virtual void Draw() const override;
 	virtual void Finalize() override;
-
+	
 	virtual void OnHitCollision(GameObject* hit_object)override;
+	
+	virtual Vector2D GetLocation();
 
 private:
 	void Movement();

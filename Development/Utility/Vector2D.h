@@ -13,7 +13,6 @@ public:
 	~Vector2D();
 
 public:
-	Vector2D& operator= (const Vector2D& location);
 
 	const Vector2D operator+ (const Vector2D& location)const;
 	Vector2D& operator += (const Vector2D& location);

@@ -56,7 +56,6 @@ void Enemy::Draw() const
 		flip_flag = TRUE;
 	}
 
-	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE);
 #if _DEBUG
 	Vector2D ul = location - (box_size / 2.0f);
 	Vector2D br = location + (box_size / 2.0f);

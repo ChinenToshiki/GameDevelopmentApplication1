@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Bom.h"
 #include"../../Utility/InputControl.h"
 #include"DxLib.h"
 
@@ -6,6 +7,7 @@ Player::Player() :animation_count(0), flip_flag(FALSE)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
+
 }
 
 Player::~Player()
@@ -15,6 +17,8 @@ Player::~Player()
 
 void Player::Initialize()
 {
+	Number = Player_Number;
+
 	animation[0] = LoadGraph("Resource/Images/Tri-Pilot/1.png");
 	animation[1] = LoadGraph("Resource/Images/Tri-Pilot/2.png");
 
@@ -26,7 +30,7 @@ void Player::Initialize()
 
 	radian = 0.0f;
 
-	scale = 64.0f;
+	box_size = 64.0f;
 
 	image = animation[0];
 }
@@ -36,14 +40,20 @@ void Player::Update()
 	Movement();
 
 	AnimationControl();
+
+	if (InputControl::GetKeyDown(KEY_INPUT_SPACE))
+	{
+		CreateObject<Bom>(location);
+	}
+
 }
 
 void Player::Draw() const
 {
 	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
 #if _DEBUG
-	Vector2D ul = location - (scale / 2.0f);
-	Vector2D br = location + (scale / 2.0f);
+	Vector2D ul = location - (box_size / 2.0f);
+	Vector2D br = location + (box_size / 2.0f);
 
 	DrawBoxAA(ul.x, ul.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
 #endif
@@ -55,9 +65,17 @@ void Player::Finalize()
 	DeleteGraph(animation[1]);
 }
 
+
 void Player::OnHitCollision(GameObject* hit_object)
 {
 	//‚ ‚½‚Á‚½‚Æ‚«[[
+	
+
+}
+
+Vector2D Player::GetLocation()
+{
+	return this->location;
 }
 
 void Player::Movement()

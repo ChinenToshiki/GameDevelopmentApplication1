@@ -2,6 +2,8 @@
 #include"Utility/InputControl.h"
 #include "Scene/Scene.h"
 
+#define GraphSize 920, 720
+
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrebInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 
@@ -9,7 +11,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrebInstance, _
 	ChangeWindowMode(TRUE);
 
 	//Windowサイズの設定
-	SetGraphMode(640, 480, 32);
+	SetGraphMode(GraphSize, 32);
 
 	//Dxライブラリの初期化の処理
 	if (DxLib_Init() == -1)

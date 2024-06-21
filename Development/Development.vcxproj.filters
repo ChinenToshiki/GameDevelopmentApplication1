@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AppMain.cpp">
+    <ClCompile Include="Object\Enemy\Enemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Object\Player\Player.cpp">
@@ -33,11 +33,23 @@
     <ClCompile Include="Utility\Vector2D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Enemy\Enemy.cpp">
+    <ClCompile Include="AppMain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Enemy\Bullet.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Bom.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DeleteAnim.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Enemy\Enemy.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="Object\Player\Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -53,11 +65,26 @@
     <ClInclude Include="Utility\Vector2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Enemy\Enemy.h">
+    <ClInclude Include="Object\Enemy\Bullet.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Bom.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DeleteAnim.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ObjectControl.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resource\Images\BoxEnemy\1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\Images\BoxEnemy\2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
     <Image Include="Resource\Images\Tri-pilot\1.png">
       <Filter>リソース ファイル</Filter>
     </Image>
@@ -67,10 +94,13 @@
     <Image Include="Resource\Images\BackGround.png">
       <Filter>リソース ファイル</Filter>
     </Image>
-    <Image Include="Resource\Images\BoxEnemy\1.png">
+    <Image Include="Resource\Images\Blast\1.png">
       <Filter>リソース ファイル</Filter>
     </Image>
-    <Image Include="Resource\Images\BoxEnemy\2.png">
+    <Image Include="Resource\Images\Blast\2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\Images\Blast\3.png">
       <Filter>リソース ファイル</Filter>
     </Image>
   </ItemGroup>

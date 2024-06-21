@@ -132,6 +132,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="Object\DeleteAnim.cpp" />
+    <ClCompile Include="Object\Player\Bom.cpp" />
+    <ClCompile Include="Object\Enemy\Bullet.cpp" />
     <ClCompile Include="Object\Enemy\Enemy.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\Player\Player.cpp" />
@@ -140,6 +143,10 @@
     <ClCompile Include="Utility\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\DeleteAnim.h" />
+    <ClInclude Include="Object\ObjectControl.h" />
+    <ClInclude Include="Object\Player\Bom.h" />
+    <ClInclude Include="Object\Enemy\Bullet.h" />
     <ClInclude Include="Object\Enemy\Enemy.h" />
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\Player\Player.h" />
@@ -149,6 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Images\BackGround.png" />
+    <Image Include="Resource\Images\Blast\1.png" />
+    <Image Include="Resource\Images\Blast\2.png" />
+    <Image Include="Resource\Images\Blast\3.png" />
     <Image Include="Resource\Images\BoxEnemy\1.png" />
     <Image Include="Resource\Images\BoxEnemy\2.png" />
     <Image Include="Resource\Images\Tri-pilot\1.png" />

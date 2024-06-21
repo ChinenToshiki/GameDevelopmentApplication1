@@ -2,14 +2,19 @@
 #include"Utility/InputControl.h"
 #include "Scene/Scene.h"
 
+//画面デカくするわ
+#define GraphSize 920, 720
+//これデフォルトの大きさや
+#define elseGraphSize 640,480
+
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrebInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 
 	//ウィンドウモードで起動
 	ChangeWindowMode(TRUE);
 
-
-	SetGraphMode(640, 480, 32);
+	//Windowサイズの設定
+	SetGraphMode(GraphSize, 32);
 
 	//Dxライブラリの初期化の処理
 	if (DxLib_Init() == -1)
@@ -17,10 +22,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrebInstance, _
 		return -1;
 	}
 
-	Scene* scene = new Scene();
-	int result = 0;
+
 
 	SetDrawScreen(DX_SCREEN_BACK);
+
+	Scene* scene = new Scene();
+	int result = 0;
 
 	try
 	{
