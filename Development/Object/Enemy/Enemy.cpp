@@ -9,26 +9,15 @@
 Scene* Sc;
 Bullet* bullet;
 
-static std::vector<std::vector<int>> enemy_value =
+Enemy::Enemy() :animation_count(0), direction(1.0f), EnemyType(0), speed(0), isShot(false),isOut(false)
 {
-	 {0,0,0,0,0,0},
-	 {0,0,0,0,0,0},
-	 {0,0,0,0,0,0},
-	 {0,0,0,0,0,0} };
+	for (int i = 0; i < 5; i++)
+	{
+		animation[i] = NULL;
+	}
 
 
-Enemy::Enemy() :animation_count(0), direction(0.0f), EnemyType(0), speed(0), isShot(false)
-{
-
-
-
-
-	animation[0] = NULL; 
-	animation[1] = NULL;
-	animation[2] = NULL;
-	animation[3] = NULL;
-	animation[4] = NULL;
-
+	Score = 0;
 
 	player = nullptr;
 	bullet = nullptr;
@@ -40,40 +29,46 @@ Enemy::~Enemy()
 
 }
 
-
 void Enemy::Initialize()
 {
-	Number = Enemy_Number;
-	EnemyType = GetRand(3);
-	//EnemyType 0 = Box; 1 = Gold; 2 = Wing;
-	switch (EnemyType) {
-	case 0:
+
+	if (GetLocation().x > 1.0f)
 	{
-		animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
-		animation[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
-		animation[2] = NULL;
-		animation[3] = NULL;
-		animation[4] = NULL;
-		break;
+		direction = -1.0f;
 	}
-	case 1:
-	{
+	Number = Enemy_Number;
+	EnemyType = GetRand(100);
+	//EnemyType  0-15 = Gold; 16-40 = Box; 41-75 = Wing 76-100 = harpy;
+	if(EnemyType<16) {
 		animation[0] = LoadGraph("Resource/Images/GoldEnemy/1.png");
 		animation[1] = LoadGraph("Resource/Images/GoldEnemy/2.png");
 		animation[2] = LoadGraph("Resource/Images/GoldEnemy/3.png");
 		animation[3] = LoadGraph("Resource/Images/GoldEnemy/4.png");
 		animation[4] = LoadGraph("Resource/Images/GoldEnemy/5.png");
-		break;
+		Score = 1500;
+		Sound = LoadSoundMem("Resource/Sounds/arrows_perfect03_short.wav");
+
 	}
-	case 2:
+	else if(EnemyType<41)
+	{
+		animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
+		animation[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
+		Score = 200;
+		Sound = LoadSoundMem("Resource/Sounds/Boss_gahee.wav");
+	}
+	else if(EnemyType < 76)
 	{
 		animation[0] = LoadGraph("Resource/Images/WingEnemy/1.png");
 		animation[1] = LoadGraph("Resource/Images/WingEnemy/2.png");
-		animation[2] = NULL;
-		animation[3] = NULL;
-		animation[4] = NULL;
-		break;
+		Score = 30;
+		Sound = LoadSoundMem("Resource/Sounds/teki_gahee.wav");
 	}
+	else
+	{
+		animation[0] = LoadGraph("Resource/Images/Harpy/1.png");
+		animation[1] = LoadGraph("Resource/Images/Harpy/2.png");
+		Score = -100;
+		Sound = LoadSoundMem("Resource/Sounds/pokan.wav");
 	}
 	if (animation[0] == -1 || animation[1] == -1)
 	{
@@ -92,7 +87,6 @@ void Enemy::Initialize()
 	radian = 0.0f;
 	box_size = 64.0f;
 	image = animation[0];
-	direction = Vector2D(1.0f, -0.5f);
 }
 
 
@@ -109,24 +103,29 @@ void Enemy::Update()
 	{
 	case 0:
 		//３以上でShotに移行(今だけ)
-		if (3 < rand() % 10 + 1 && isShot == false)
+		if (3 > GetRand(10) && isShot == false)
 		{
 			Shot();
 		}
 	}
 
-	for (int i = 0; i < 4; i++)
-	{
-		enemy_value[i][6] = 0;
-		for (int j = 0; j < 7; j++)
-		{
-			if (enemy_value[i][j] == 1)
-			{
-				enemy_value[i][6] += 1;
-			}
-		}
-	}
+	//for (int i = 0; i < 4; i++)
+	//{
+	//	enemy_value[i][6] = 0;
+	//	for (int j = 0; j < 7; j++)
+	//	{
+	//		if (enemy_value[i][j] == 1)
+	//		{
+	//			enemy_value[i][6] += 1;
+	//		}
+	//	}
+	//}
 
+	if (-1.0f > location.x || 930.0f < location.x)
+	{
+		isOut = true;
+		DeleteClass(this);
+	}
 }
 
 void Enemy::Draw() const
@@ -134,7 +133,7 @@ void Enemy::Draw() const
 
 	int flip_flag = FALSE;
 
-	if (direction.x > 0.0f)
+	if (direction > 0.0f)
 	{
 		flip_flag = FALSE;
 	}
@@ -159,7 +158,6 @@ void Enemy::OnHitCollision(GameObject* hit_object)
 	if (hit_object == player)
 	{
 	direction = 0.0f;
-
 	}
 }
 
@@ -174,27 +172,29 @@ void Enemy::Finalize()
 	{
 	DeleteGraph(animation[i]);
 	}
+
+ 	if (isOut == false)
+	{
+		scene->ScoreUpdate(Score);
+	}
+
+	PlaySoundMem(Sound, DX_PLAYTYPE_BACK);
+
+	scene->DownEnemyCount();
 }
 
 void Enemy::SetBL(Vector2D location) 
 {
 	bullet = CreateObject<Bullet>(Vector2D(location.x,location.y));
 
-
-	Vector2D a = player->GetLocation();
 	bullet->SetLocation(player->GetLocation(), Vector2D(this->location));
 
 }
 
 void Enemy::Movement()
 {
-	if (((location.x + direction.x) < box_size.x) || (930.0f - box_size.x) < (location.x + direction.x))
-	{
-		direction.x *= ( - 1.0f );
-	}
-
 	//進行方向に向かって位置座標を変更する
-	location += direction * speed;
+	location.x += direction * speed;
 }
 
 void Enemy::AnimationControl()

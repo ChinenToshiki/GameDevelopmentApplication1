@@ -10,6 +10,7 @@ private:
 	int Anim;
 	bool isShot;
 	bool dele;
+	int sound;
 
 public:
 	Bom();

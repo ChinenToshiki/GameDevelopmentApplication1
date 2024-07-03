@@ -5,11 +5,12 @@
 
 Bullet::Bullet() {
 	speed = 2.0f;
-	location = (0.0f, 0.0f);
 	isShot = false;
 	Number = Bullet_Number;
+	box_size = 30;
 
 	BulletAnim[0] = LoadGraph("Resource/Images/EnemyBullet/1.png");
+	Sound = LoadSoundMem("Resource/Sounds/bishi.wav");
 }
 
 Bullet::~Bullet()
@@ -22,6 +23,7 @@ void Bullet::Initialize()
 
 void Bullet::Finalize()
 {
+	PlaySoundMem(Sound, DX_PLAYTYPE_BACK);
 	CreateObject<DeleteAnim>(location)->GetObjectType(this->Number);
 }
 
@@ -31,23 +33,34 @@ void Bullet::Update()
 	Shot();
 
 	//画面外へ行ったら自身を削除
-	if (location.x <= 0.0f || location.y <= 0.0f || location.x >= 920.0f || location.y >= 720.0f)
+	if (location.x <= 0.0f || location.y <= -20.0f || location.x >= 920.0f || location.y >= 720.0f)
 	{
 		DeleteClass(this);
 	}
-
 }
 
 void Bullet::Draw() const
 {
-	DrawGraphF(location.x, location.y, BulletAnim[0], true);
+	DrawExtendGraphF(location.x-15, location.y-15,location.x+15,location.y+15, BulletAnim[0], true);
+#ifdef D_PIVOT_CENTER
+	Vector2D tl = location - (box_size / 2.0f);
+	Vector2D br = location + (box_size / 2.0f);
+
+	DrawBoxAA(tl.x, tl.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
+#else
+	Vector2D tl = location;
+	Vector2D br = location + box_size;
+
+	DrawBoxAA(tl.x, tl.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
+#endif // D_PIVOT_CENTER
+
 }
 
 void Bullet::Movement()
 {
 	Vector2D diff = NULL;
 	//プレイヤーとエネミーの自身の差
-	 diff = Vector2D((Player_location.x - 25.0f) - this->GetLocation().x, (Player_location.y - 100.0f) - this->GetLocation().y);
+	 diff = Vector2D((Player_location.x) - this->GetLocation().x, (Player_location.y-70.0f) - this->GetLocation().y);
 
 	 float radian = NULL;
 	//ベクトルから角度を知る
@@ -99,6 +112,7 @@ void Bullet::OnHitCollision(GameObject* hit_object)
 
 	if (hit_Nuber == Player_Number)
 	{
+		scene->DownTimer();
 		DeleteClass(this);
 	}
 }
@@ -107,11 +121,6 @@ void Bullet::OnHitCollision(GameObject* hit_object)
 float Bullet::GetSpeed()
 {
 	return speed;
-}
-
-Vector2D Bullet::GetLocation()
-{
-	return location;
 }
 
 void Bullet::Shot(Vector2D location)

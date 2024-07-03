@@ -22,10 +22,12 @@ Bom::~Bom()
 	DeleteGraph(Anim);
 }
 
+//初期化
 void Bom::Initialize()
 {
 	location.y += 100.0f;
 	Anim = LoadGraph("Resource/Images/Bomb/Bomb.png");
+	sound = LoadSoundMem("Resource/Sounds/explosion.wav");
 	if (Anim == NULL)
 	{
 		throw("ぼむえーらー");
@@ -72,8 +74,11 @@ void Bom::Shot()
 {
 }
 
+//消去時処理
 void Bom::Finalize()
 {
+	//サウンドを再生し、自身の識別番号をDeleteAnimに送る
+	PlaySoundMem(sound, DX_PLAYTYPE_BACK);
 	CreateObject<DeleteAnim>(location)->GetObjectType(this->Number);
 }
 
@@ -87,10 +92,11 @@ Vector2D Bom::GetLocation()
 	return location;
 }
 
+//当たった時
 void Bom::OnHitCollision(GameObject* hit_object)
 {
+	//識別番号を取得
 	int hit_num;
-
  	hit_num = hit_object->GetNuber();
 
 	//Enemy* hitObject = dynamic_cast<Enemy*>(hit_object);
@@ -101,7 +107,7 @@ void Bom::OnHitCollision(GameObject* hit_object)
 	//}
 	//hit_num = Enemy_Number;
 
-
+	//識別番号で当たったオブジェクトを認識する
 	if (hit_num == Enemy_Number)
 	{
 		DeleteClass(hit_object);

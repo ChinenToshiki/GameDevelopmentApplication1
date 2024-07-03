@@ -7,6 +7,9 @@
 //これデフォルトの大きさや
 #define elseGraphSize 640,480
 
+#define FPS (60)
+#define FrameTime (1000/FPS)
+
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrebInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 
@@ -35,6 +38,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrebInstance, _
 
 		while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
 		{
+			{
+				// フレーム開始時刻を取得
+				int startTime = GetNowCount();
+
+				// 現在の時間から経過時間を計算
+				int elapsedTime = GetNowCount() - startTime;
+
 			InputControl::Update();
 
 			scene->Update();
@@ -44,6 +54,15 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrebInstance, _
 			scene->Draw();
 
 			ScreenFlip();
+
+
+			// 待機時間を計算
+			int waitTime = FrameTime - elapsedTime;
+			if (waitTime > 0) {
+				WaitTimer(waitTime);
+			}
+			}
+
 		}
 	}
 	catch (const char* error_log)

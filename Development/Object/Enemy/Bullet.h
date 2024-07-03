@@ -6,12 +6,11 @@
 class Bullet : public ObjectControl
 {
 private:
-	/*	Vector2D location;*/
 	float speed;
-	float Location;
 	int BulletAnim[4];
 	Vector2D Player_location;
 	bool isShot;
+	int Sound;
 
 public:
 	Bullet();
@@ -28,7 +27,6 @@ public:
 	virtual void Shot();
 
 	float GetSpeed();
-	Vector2D GetLocation();
 
 };
 

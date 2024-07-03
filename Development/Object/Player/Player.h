@@ -8,7 +8,7 @@ private:
 	int animation[2];
 	int animation_count;
 	int flip_flag;
-
+	int sound;
 public:
 	Player();
 	~Player();

@@ -10,20 +10,21 @@
 class Enemy : public ObjectControl
 {
 private:
-
 	int animation[5];
 	int animation_count;
-	Vector2D direction;
+	float direction;
 	Player* player;
 	int EnemyType;
 	float speed;
 	bool isShot;
+	bool isOut;
+	short int Score;
+	int Sound;
 
 public:
 	Enemy();
 	~Enemy();
 
-	static float GetLocation();
 	virtual void Initialize() override;
 	virtual void Update() override;
 	virtual void Draw() const override;

@@ -15,12 +15,15 @@ Player::~Player()
 
 }
 
+//初期化
 void Player::Initialize()
 {
 	Number = Player_Number;
 
 	animation[0] = LoadGraph("Resource/Images/Tri-Pilot/1.png");
 	animation[1] = LoadGraph("Resource/Images/Tri-Pilot/2.png");
+	sound = LoadSoundMem("Resource/Sounds/pan.wav");
+
 
 
 	if (animation[0] == -1 || animation[1] == -1)
@@ -37,12 +40,16 @@ void Player::Initialize()
 
 void Player::Update()
 {
+	//動きの処理
 	Movement();
 
+	//アニメーションの処理
 	AnimationControl();
 
+	//スペースで爆弾を作る
 	if (InputControl::GetKeyDown(KEY_INPUT_SPACE))
 	{
+		PlaySoundMem(sound, DX_PLAYTYPE_BACK);
 		CreateObject<Bom>(location);
 	}
 

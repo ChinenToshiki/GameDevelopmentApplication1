@@ -8,12 +8,23 @@ class Scene
 {
 private:
 	std::vector<GameObject*> objects;
+	//各種処理に必要な変数
 	int BackGround;
+	int EnemyCount;
 	class Player* player;
-	class Bom* bom;
-	class Enemy* enemy;
+	bool isFinish;
+	//タイマー関係
 	int Timer;
+	int TimerCount;
+	int TimerImage;
+	//スコア関係
 	int Score;
+	int ScoreImage;
+	int ScoreText[4];
+	int NumberImage[10];
+	int HightScoreImage;
+	int EndText;
+
 
 public:
 	Scene();
@@ -23,7 +34,14 @@ public:
 	void Update();
 	void Draw()const;
 	void Finalize();
+	void ScoreUpdate(int HitScore);
+	void DrawUI() const;
+	void TimeCount();
+	float SpawnRand();
+	void DownEnemyCount();
+	void DownTimer();
 
+	void Finish();
 
 
 	//当たり判定のチェック処理
